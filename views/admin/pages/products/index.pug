@@ -1,0 +1,154 @@
+extends ../../layout/default.pug
+include ../../mixins/filter-status.pug
+include ../../mixins/pagination.pug
+
+block main
+    if message && message.success
+        .message.info
+        div.alert.alert-success(show-alert data-time="5000")
+            | #{message.success} 
+            span(close-alert) X
+
+
+
+        
+    h1 Trang Danh Sách Sản Phẩm
+    .card.mb-3
+        .card-header Bộ Lọc và Tìm Kiếm
+        .card-body
+            .row
+                .col-8
+                    form(
+                        action=`${prefixAdmin}/products/change-multi?_method=PATCH`
+                        method="POST"
+                        form-change-multi
+                        ) 
+                .col-4
+                    a(
+                        href=`${prefixAdmin}/products/create`
+                        class="btn btn-outline-success"
+                    ) + Thêm mới
+                .d-flex.align-items-start
+                    .form-group
+                        select(name="type" class="form-control")
+                            option(disabled selected) -- Chọn Hoạt Động --
+                            option(value="active") Hoạt động 
+                            option(value="inactive") Dừng hoạt động
+                            option(value="delete-all") Xoá Tất Cả
+                            option(value="change-position") thay đổi vị trí 
+                    .form-group 
+                        input(
+                            type="text"
+                            name="ids"
+                            value=""
+                            class="form-control " 
+                          ) 
+                    button(type="submit", class="btn btn-primaky") Áp dụng
+            .row 
+                .col-6
+                    +filter-status(filterStatus)
+                .col-6 
+                    form(id="form-search")
+                        .input-group
+                            input(type="text"
+                            placeholder="nhập từ khóa"
+                            name="keyword"
+                            class="form-control"
+                            value=keyword
+                            )
+                        .input-group-append 
+                            button(
+                                class="btn btn-success"
+                                type="submit"
+                            ) Tìm
+            
+
+    table(
+        class="table table-hover table-sm"
+        checkbox-multi
+    )
+        thead.thead-light
+            tr
+                th
+                    input(type="checkbox" name="checkAll")
+                th STT
+                th Hình ảnh
+                th Tiêu đề
+                th Giá
+                th Vị trí
+                th Trạng thái
+                th Hành động
+        tbody
+            each item, index in products
+                tr
+                    td 
+                        input(
+                            type="checkbox"
+                            name="id"
+                            value=item.id
+                        )
+                    td #{index+1}
+                    td
+                        img(src=item.thumbnail alt=item.title width="100px" height="auto")
+                    td #{item.title}
+                    td #{item.price}$
+                    td 
+                        input(
+                            type= "number"
+                            value= item.position 
+                            style ="width: 60px"
+                            min="1"
+                            name="position"
+                        )
+                    td
+                        if(item.status== "active")
+                            a(
+                                href="javascript:" 
+                                data-status=item.status 
+                                data-id=item.id
+                                button-change-status
+                                class="badge badge-success"
+                            ) Hoạt động
+                        else 
+                            a(
+                                href="javascript:" 
+                                data-status=item.status 
+                                data-id=item.id 
+                                button-change-status
+                                class="badge badge-danger"
+                            )  Dừng hoạt động
+
+                    td
+                        button(class="btn btn-warning btn-sm") Sửa
+                        button(
+                            class="btn btn-danger btn-sm.ml-1"
+                            button-delete 
+                            data-item=item.id
+                        ) Xóa
+            //- tr
+            //-     td 2
+            //-     td
+            //-         img(src="https://i.dummyjson.com/data/products/1/thumbnail.jpg" alt="Sản phẩm 2" width="100px" height="auto")
+            //-     td Sản phẩm 2
+            //-     td 150$
+            //-     td
+            //-         a(href="#" class="badge badge-danger")  Dừng hoạt động
+            //-     td
+            //-         button.btn.btn-warning.btn-sm Sửa
+            //-         button.btn.btn-danger.btn-sm.ml-1 Xóa
+    +Pagination(pagination)
+    form(
+        action="", 
+        method="POST"
+        id= "form-change-status"
+        path=`${prefixAdmin}/products/change-status`
+        ) 
+    form(
+        action="", 
+        method="POST"
+        id= "form-delete-item"
+        path=`${prefixAdmin}/products/delete`
+        ) 
+
+        script(src="/admin/js/product.js") 
+    

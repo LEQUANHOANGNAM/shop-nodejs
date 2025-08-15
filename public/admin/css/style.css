@@ -1,0 +1,75 @@
+.header {
+    background: #202020;
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+.header .inner-logo a {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.body {
+    display: flex;
+    height: 100vh;
+    margin-top: 56px; /* Adjust to separate header and body */
+}
+
+.body .sider {
+    width: 150px;
+    background: #323232;
+    color: #fff;
+    height: calc(100vh - 56px); /* Adjust height to exclude header */
+    position: fixed;
+    left: 0;
+    box-sizing: border-box;
+}
+
+.body .main {
+    margin-left: 150px;
+    padding: 20px;
+    background: #f0f0f0;
+    width: calc(100% - 150px);
+    height: 100vh;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+
+/* show alert */
+[show-alert]{
+    position:fixed;
+    top: 70px;
+    right: 15px;
+    z-index: 9999;
+}
+[show-alert].alert-hidden{
+    animation-name: alert-hidden;
+    animation-duration: 0.5s;
+    animation-fill-mode: both;
+}
+@keyframes alert-hidden {
+    from{
+        right: 15px;
+    }
+    to{
+        right: -100%;
+        display: none;
+    }
+}
+
+[show-alert] [close-alert]{
+    background:#ffffffc4;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 50%;
+    cursor: pointer;
+}

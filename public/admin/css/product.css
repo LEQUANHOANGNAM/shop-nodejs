@@ -1,0 +1,110 @@
+/* Layout chung */
+h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Card chứa bộ lọc */
+.card {
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Form lọc và tìm kiếm */
+.form-group {
+    margin-right: 10px;
+}
+
+.btn {
+    border-radius: 5px;
+}
+
+.btn-outline-success {
+    font-weight: bold;
+}
+
+/* Input tìm kiếm */
+.input-group input {
+    border-radius: 5px 0 0 5px;
+}
+
+.input-group .btn {
+    border-radius: 0 5px 5px 0;
+}
+
+/* Bảng sản phẩm */
+.table {
+    background-color: white;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.table th {
+    background-color: #f1f1f1;
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table img {
+    border-radius: 6px;
+    object-fit: cover;
+}
+
+/* Badge trạng thái */
+.badge-success {
+    background-color: #28a745;
+    font-size: 0.9rem;
+    padding: 6px 10px;
+    border-radius: 5px;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+    font-size: 0.9rem;
+    padding: 6px 10px;
+    border-radius: 5px;
+}
+
+/* Nút hành động */
+.btn-warning {
+    background-color: #ffc107;
+    color: #000;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* Phân trang */
+.pagination {
+    justify-content: center;
+}
+
+.pagination .page-link {
+    color: #007bff;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+/* Message */
+.alert {
+    border-radius: 6px;
+    font-weight: bold;
+}

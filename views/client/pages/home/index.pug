@@ -1,4 +1,21 @@
 extends ../../layouts/default.pug
 
-block main 
-    h1 Trang Chủ
+block main
+  h1 Trang Chủ
+  h2 Sản phẩm mới nhất
+  .product-list
+    each product in products
+      .product-item
+        .product-image
+          img(src=product.thumbnail alt=product.title)
+        .product-info
+          h4= product.title
+          if product.discountPercentage
+            p Giá khuyến mãi: #{product.priceNew}₫
+            p Giá gốc: #{product.price}₫
+          else
+            p Giá: #{product.price}₫
+          a(href=`/products/${product._id}`) Xem chi tiết
+
+    else
+      p Chưa có sản phẩm nào

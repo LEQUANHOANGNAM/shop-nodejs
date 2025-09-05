@@ -177,3 +177,38 @@ module.exports.createPost = async (req, res) => {
     res.status(500).send("Đã xảy ra lỗi khi tạo sản phẩm.");
   }
 };
+
+
+const User = require("../../models/product.model")
+module.exports.resisger= async (req,res) => {
+  req.body.password= md5(req.body.password);
+  const existEmail= await User.findOne({
+    email: req.body.email,
+    deleted: false
+  });
+
+  if(existEmail){
+    res.json({
+      code:200,
+      message: "email đã tồn tại!"
+    })
+  }else{
+    const user= new User({
+      fullname: req.body.fullname,
+      email: req.body.email,
+      password: req.body.password
+    });
+
+    const token= user.token;
+
+    req.json({
+      code: 400,
+      message:"tạo tài khoản thành công!",
+      toke:token
+    })
+  }
+
+};
+
+
+

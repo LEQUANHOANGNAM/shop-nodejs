@@ -35,6 +35,9 @@ app.use((req, res, next) => {
   res.locals.messages = req.flash();
   next();
 });
+
+
+
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
 app.use(express.static("public"));

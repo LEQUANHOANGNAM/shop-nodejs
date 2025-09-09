@@ -2,25 +2,30 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 
 block main 
-    .container.my-3 
-        .row 
-            .col-12 
-                +box-head("Danh sách sản phẩm")
-            
-        
-        .row 
-            each item in products 
-                .col-4.mb-3 
-                    .product-item 
-                        .inner-image 
-                            img(
-                                src=item.thumbnail, 
-                                alt=item.title
-                            )
-                        .inner-content 
-                            h3.inner-title #{item.title} 
-                            .inner-price-new  #{item.priceNew}$
-                            .inner-price-old #{item.price}$
-                            .inner-discount #{item.discountPercentage}%
+  .container.my-4
+    .row.mb-4
+      .col-12
+        +box-head("Danh sách sản phẩm")
 
-    
+    .row.g-4
+      each item in products
+        .col-lg-4.col-md-6.col-sm-12
+          .card.h-100.shadow-sm.border-0.product-item
+            a.inner-image(href=`/products/${item.id}`)
+              img.card-img-top(src=item.thumbnail, alt=item.title)
+
+            .card-body.d-flex.flex-column
+              h5.card-title.mb-2 #{item.title}
+              
+              if item.priceNew
+                p.text-success.fw-semibold.mb-1 Giá mới: #{item.priceNew}$
+              
+              if item.price
+                p.text-muted.text-decoration-line-through.mb-1 Giá cũ: #{item.price}$
+              
+              if item.discountPercentage
+                p.text-danger.fw-bold.mb-3 Giảm #{item.discountPercentage}%
+
+              a.btn.btn-primary.mt-auto(
+                href=`/products/${item._id}`
+              ) Xem chi tiết

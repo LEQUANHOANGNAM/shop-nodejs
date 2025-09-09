@@ -1,23 +1,57 @@
 extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
 
 block main
-  .product-detail
-    .product-image
-      img(src=product.thumbnail alt=product.title)
-    .product-info
-      h1= product.title
-      if product.discountPercentage
-        p 
-          strong Giá khuyến mãi: 
-          | #{product.priceNew}₫
-        p 
-          strong Giá gốc: 
-          | #{product.price}₫
-      else
-        p 
-          strong Giá: 
-          | #{product.price}₫
-      p 
-        strong Mô tả: 
-        | #{product.description}
-      a(href="/") ← Quay lại danh sách
+  .product-detail.container.my-5
+    .row.g-5.align-items-start
+      // Ảnh sản phẩm
+      .col-lg-6.col-md-12
+        .product-image
+          img(src=product.thumbnail, alt=product.title)
+
+      // Thông tin sản phẩm
+      .col-lg-6.col-md-12
+        .product-info
+          h1.inner-title.mb-3 #{product.title}
+
+          if (product.category)
+            p.text-muted.mb-2
+              | Danh mục: 
+              a(href=`/products/${product.category.slug}` class="fw-semibold text-decoration-none text-primary")
+                | #{product.category.title}
+
+          if (product.priceNew)
+            p.price.mb-1 Giá mới: #{product.priceNew}$
+
+          if (product.price)
+            p.price-old.mb-1 Giá cũ: #{product.price}$
+
+          if (product.discountPercentage)
+            p.inner-percent.text-danger.fw-semibold.mb-1 
+              | Giảm tới 
+              span.ms-1 #{product.discountPercentage}%
+
+          if (product.stock)
+            p.stock.mb-3 Còn lại <strong>#{product.stock}</strong> sản phẩm
+
+          // Form giỏ hàng
+          form(action=`/cart/add/${product.id}` method="POST" class="d-flex flex-wrap gap-3 align-items-center")
+            input(
+              class="form-control"
+              type="number"
+              name="quantity"
+              value="1"
+              min="1"
+              max=product.stock
+              style="max-width:90px"
+            )
+            button(
+              type="submit"
+              class="btn btn-success px-4 fw-semibold"
+            ) Thêm vào giỏ hàng
+
+  // Mô tả sản phẩm
+  .container.my-5
+    .product-description
+      +box-head("Mô tả sản phẩm")
+      .inner-desc.mt-3 !{product.description}

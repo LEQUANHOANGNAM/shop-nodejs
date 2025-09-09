@@ -1,21 +1,29 @@
 extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
 
 block main
-  h1 Trang Chủ
-  h2 Sản phẩm mới nhất
-  .product-list
-    each product in products
-      .product-item
-        .product-image
-          img(src=product.thumbnail alt=product.title)
-        .product-info
-          h4= product.title
-          if product.discountPercentage
-            p Giá khuyến mãi: #{product.priceNew}₫
-            p Giá gốc: #{product.price}₫
-          else
-            p Giá: #{product.price}₫
-          a(href=`/products/${product._id}`) Xem chi tiết
+  .container.my-5
+    .row.mb-4
+      .col-12
+        +box-head("Sản Phẩm Nổi Bật")
 
-    else
-      p Chưa có sản phẩm nào
+    .row
+      each product in products
+        .col-md-3.col-sm-6.mb-4
+          .product-item
+            .inner-image
+              a(href=`/products/${product._id}`)
+                img(src=product.thumbnail, alt=product.title)
+            .inner-content
+              h3.inner-title= product.title
+              if product.discountPercentage
+                .inner-price-new Giá khuyến mãi: #{product.priceNew}₫
+                .inner-price-old Giá gốc: #{product.price}₫
+                .inner-discount -#{product.discountPercentage}%
+              else
+                .inner-price-new Giá: #{product.price}₫
+              a.btn.btn-primary.mt-2(href=`/products/${product._id}`) Xem chi tiết
+
+      else
+        .col-12
+          p.text-center Chưa có sản phẩm nào

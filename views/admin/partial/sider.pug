@@ -1,7 +1,24 @@
-.sider
+.sider.bg-dark.text-white.h-100.p-3
+    h3.mb-4.font-weight-bold.text-uppercase.text-center ADMIN
     .inner-menu
-        ul
-            li
-                a(href=prefixAdmin+"/dashboard") Tổng Quan 
-            li
-                a(href=prefixAdmin+"/products") Sản phẩm   
+        ul.nav.flex-column
+            li.nav-item.mb-2
+                a.nav-link.d-flex.align-items-center.text-white(href=prefixAdmin+"/dashboard")
+                    i.fas.fa-tachometer-alt.mr-2
+                    | Tổng Quan 
+            li.nav-item.mb-2
+                a.nav-link.d-flex.align-items-center.text-white(href=prefixAdmin+"/products")
+                    i.fas.fa-box-open.mr-2
+                    | Sản phẩm
+            li.nav-item.mb-2
+                a.nav-link.d-flex.align-items-center.text-white(href=prefixAdmin+"/products-category")
+                    i.fas.fa-tags.mr-2
+                    | Danh mục sản phẩm
+            li.nav-item.mb-2
+                a.nav-link.d-flex.align-items-center.text-white(href=prefixAdmin+"/roles")
+                    i.fas.fa-users-cog.mr-2
+                    | Nhóm quyền
+            li.nav-item.mb-2
+                a.nav-link.d-flex.align-items-center.text-white(href=prefixAdmin+"/roles/permissions")
+                    i.fas.fa-user-shield.mr-2
+                    | Phân quyền

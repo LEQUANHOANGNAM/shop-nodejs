@@ -11,7 +11,7 @@ function route(app) {
 
   app.use("/search",requireAuth, searchRoutes)
 
-  app.use("/", requireAuth, homeRoutes);
+  app.use("/", homeRoutes);
   app.use("/products", requireAuth, productRoutes);
 }
 
